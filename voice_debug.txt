@@ -1,0 +1,1698 @@
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Premium Fresh Grocery, qty: 1}]
+Products in DB: 12
+Processing item: "premium fresh grocery"
+-> Matched exactly/singularly: Premium Fresh Grocery
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Premium Fresh Grocery, qty: 1}]
+Products in DB: 12
+Processing item: "premium fresh grocery"
+-> Matched exactly/singularly: Premium Fresh Grocery
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Multiple matches found
+Added: 0, Suggestions: [Cake], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Premium Fresh Grocery, qty: 1}]
+Products in DB: 12
+Processing item: "premium fresh grocery"
+-> Matched exactly/singularly: Premium Fresh Grocery
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Premium Fresh Grocery, qty: 1}]
+Products in DB: 12
+Processing item: "premium fresh grocery"
+-> Matched exactly/singularly: Premium Fresh Grocery
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: []
+Products in DB: 12
+Added: 0, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Premium Fresh Grocery, qty: 1}]
+Products in DB: 12
+Processing item: "premium fresh grocery"
+-> Matched exactly/singularly: Premium Fresh Grocery
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Premium Fresh Grocery, qty: 1}]
+Products in DB: 12
+Processing item: "premium fresh grocery"
+-> Matched exactly/singularly: Premium Fresh Grocery
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Matched exactly/singularly: Chocolate Fudge Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Milk, qty: 1}]
+Products in DB: 12
+Processing item: "milk"
+-> Matched exactly/singularly: milk
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Black Forest Cake, qty: 1}]
+Products in DB: 12
+Processing item: "black forest cake"
+-> Matched exactly/singularly: Black Forest Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Butterscotch Cake, qty: 1}]
+Products in DB: 12
+Processing item: "butterscotch cake"
+-> Matched exactly/singularly: Butterscotch Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Luxury Bath Soap, qty: 1}]
+Products in DB: 12
+Processing item: "luxury bath soap"
+-> Matched exactly/singularly: Luxury Bath Soap
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Herbal Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "herbal shampoo"
+-> Matched exactly/singularly: Herbal Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Cake, qty: 1}]
+Products in DB: 12
+Processing item: "cake"
+-> Matched exactly/singularly: Chocolate Fudge Cake
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Biscuit, qty: 1}]
+Products in DB: 12
+Processing item: "biscuit"
+-> Matched exactly/singularly: Biscuit
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Sunflower Oil 1L, qty: 1}]
+Products in DB: 12
+Processing item: "sunflower oil 1l"
+-> Matched exactly/singularly: Sunflower Oil 1L
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Clinic Plus Shampoo, qty: 1}]
+Products in DB: 12
+Processing item: "clinic plus shampoo"
+-> Matched exactly/singularly: Clinic Plus Shampoo
+Added: 1, Suggestions: [], NotFound: []
+--- VOICE BILLING UPDATE ---
+Items: [{product: Chocolate Cake, qty: 1.0}]
+Products in DB: 12
+Processing item: "chocolate cake"
+-> Matched exactly/singularly: Chocolate Cake
+Added: 1, Suggestions: [], NotFound: []

@@ -1,0 +1,6 @@
+{
+  "name": "Tea Billing",
+  "description": "Offline mobile billing app for tea shops and cafes with local database product management, fast cart billing, receipt preview, bill history, and Bluetooth ESC/POS thermal printer support.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

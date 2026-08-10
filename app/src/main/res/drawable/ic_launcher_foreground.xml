@@ -1,0 +1,39 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Steam lines -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M44,32c-2,-3 -1,-6 1,-8c2,-2 2,-4 0,-6"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,29c-2,-3 -1,-6 1,-8c2,-2 2,-4 0,-6"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M64,32c-2,-3 -1,-6 1,-8c2,-2 2,-4 0,-6"
+        android:strokeWidth="2.5"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"/>
+    <!-- Teacup Body -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,44h44v14c0,8.8 -7.2,16 -16,16h-12c-8.8,0 -16,-7.2 -16,-16z"/>
+    <!-- Teacup Handle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:pathData="M76,48h6c4.4,0 8,3.6 8,8c0,4.4 -3.6,8 -8,8h-6"/>
+    <!-- Saucer -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M26,78h56c2.2,0 4,1.8 4,4v1h-64v-1c0,-2.2 1.8,-4 4,-4z"/>
+</vector>
