@@ -1,0 +1,9 @@
+websockets
+faster-whisper
+webrtcvad
+sounddevice
+numpy
+google-generativeai
+python-dotenv
+thefuzz
+python-Levenshtein  

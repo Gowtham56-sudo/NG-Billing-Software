@@ -487,6 +487,14 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
                                     ),
                                     DataColumn(
                                       label: Text(
+                                        'Unit',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: Text(
                                         'Price',
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -525,43 +533,43 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
                                   ],
                                   rows: [
                                     ...cartState.items.map((item) {
+                                      final rawUnit = item.product.unit.toLowerCase().trim();
+                                      final unitSuffix = rawUnit == 'milli liter' || rawUnit == 'milliliter' || rawUnit == 'ml'
+                                          ? 'ml'
+                                          : rawUnit == 'liter' || rawUnit == 'litre' || rawUnit == 'l'
+                                              ? 'L'
+                                              : rawUnit == 'gram' || rawUnit == 'grams' || rawUnit == 'g'
+                                                  ? 'g'
+                                                  : rawUnit == 'kilogram' || rawUnit == 'kg'
+                                                      ? 'kg'
+                                                      : rawUnit == 'bag' || rawUnit == 'bags'
+                                                          ? 'Bag'
+                                                          : rawUnit == 'packet' || rawUnit == 'pack' || rawUnit == 'pkt'
+                                                              ? 'Pkt'
+                                                              : rawUnit == 'box' || rawUnit == 'boxes'
+                                                                  ? 'Box'
+                                                                  : item.product.unit.isEmpty ? 'Pcs' : item.product.unit;
+
+                                      final uVal = item.product.unitValue > 0 ? item.product.unitValue : 1.0;
+                                      final valStr = uVal % 1 == 0 ? uVal.toInt().toString() : uVal.toStringAsFixed(1);
+                                      final fullUnitDisplay = '$valStr $unitSuffix';
+
                                       return DataRow(
                                         cells: [
                                           DataCell(
                                             Text(
-                                              '${item.product.name} (${item.product.unit})',
+                                              item.product.name,
                                               style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
+                                                fontWeight: FontWeight.w600,
                                               ),
                                             ),
                                           ),
                                           DataCell(
                                             _EditableCell(
-                                              initialValue: item.quantity
-                                                  .toStringAsFixed(1),
+                                              initialValue: item.quantity % 1 == 0
+                                                  ? item.quantity.toInt().toString()
+                                                  : item.quantity.toStringAsFixed(1),
                                               showButtons: true,
-                                              suffixText:
-                                                  item.product.unit
-                                                          .toLowerCase() ==
-                                                      'gram'
-                                                  ? 'g'
-                                                  : item.product.unit
-                                                            .toLowerCase() ==
-                                                        'kg'
-                                                  ? 'kg'
-                                                  : item.product.unit
-                                                            .toLowerCase() ==
-                                                        'liter'
-                                                  ? 'L'
-                                                  : item.product.unit
-                                                            .toLowerCase() ==
-                                                        'milli liter'
-                                                  ? 'ml'
-                                                  : item.product.unit
-                                                            .toLowerCase() ==
-                                                        'bag'
-                                                  ? 'Bag'
-                                                  : null,
                                               onChanged: (val) {
                                                 final qty = double.tryParse(
                                                   val,
@@ -577,6 +585,30 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
                                                       );
                                                 }
                                               },
+                                            ),
+                                          ),
+                                          DataCell(
+                                            Container(
+                                              padding: const EdgeInsets.symmetric(
+                                                horizontal: 8,
+                                                vertical: 3,
+                                              ),
+                                              decoration: BoxDecoration(
+                                                color: colorScheme.primaryContainer.withOpacity(0.4),
+                                                borderRadius: BorderRadius.circular(6),
+                                                border: Border.all(
+                                                  color: colorScheme.primary.withOpacity(0.3),
+                                                  width: 1,
+                                                ),
+                                              ),
+                                              child: Text(
+                                                fullUnitDisplay,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                  color: colorScheme.primary,
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           DataCell(
@@ -668,6 +700,7 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
                                               ),
                                             ),
                                           ),
+                                          DataCell(Text('')),
                                           DataCell(Text('')),
                                           DataCell(Text('')),
                                           DataCell(Text('')),
@@ -1242,7 +1275,7 @@ class _EditableCellState extends State<_EditableCell> {
   void _increment() {
     final qty = double.tryParse(_controller.text) ?? 1.0;
     final newQty = qty + 1;
-    _controller.text = newQty.toStringAsFixed(1);
+    _controller.text = newQty % 1 == 0 ? newQty.toInt().toString() : newQty.toStringAsFixed(1);
     widget.onChanged(_controller.text);
   }
 
@@ -1250,7 +1283,7 @@ class _EditableCellState extends State<_EditableCell> {
     final qty = double.tryParse(_controller.text) ?? 1.0;
     if (qty > 1) {
       final newQty = qty - 1;
-      _controller.text = newQty.toStringAsFixed(1);
+      _controller.text = newQty % 1 == 0 ? newQty.toInt().toString() : newQty.toStringAsFixed(1);
       widget.onChanged(_controller.text);
     }
   }

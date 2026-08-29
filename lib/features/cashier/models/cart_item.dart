@@ -23,8 +23,7 @@ class CartItem {
     return product.sellingPrice;
   }
   double getGrossAmount(String saleType) {
-    double baseVal = product.unitValue > 0 ? product.unitValue : 1.0;
-    return getPrice(saleType) * (quantity / baseVal);
+    return getPrice(saleType) * quantity;
   }
   double getDiscountedAmount(String saleType) => getGrossAmount(saleType) - discount;
   double getGstAmount(String saleType) => getDiscountedAmount(saleType) * (product.gstPercentage / 100);

@@ -80,17 +80,38 @@ class AppShell extends ConsumerWidget {
                       Consumer(
                         builder: (context, ref, child) {
                           final voiceState = ref.watch(voiceBillingProvider);
-                          return IconButton(
-                            icon: voiceState.isProcessing 
-                                ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                                : Icon(
-                                    voiceState.isRecording ? Icons.mic : Icons.mic_none,
-                                    color: voiceState.isRecording ? Colors.redAccent : null,
-                                  ),
-                            tooltip: voiceState.isRecording ? 'Stop Listening' : 'Start Voice Assistant',
-                            onPressed: () {
-                              ref.read(voiceBillingProvider.notifier).toggleRecording();
-                            },
+                          return Tooltip(
+                            message: voiceState.isRecording ? 'Listening... Click to Stop' : 'Start Voice Assistant',
+                            child: AnimatedContainer(
+                              duration: const Duration(milliseconds: 300),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: voiceState.isRecording ? Colors.red.withOpacity(0.15) : Colors.transparent,
+                                border: voiceState.isRecording
+                                    ? Border.all(color: Colors.redAccent, width: 2)
+                                    : null,
+                                boxShadow: voiceState.isRecording
+                                    ? [
+                                        BoxShadow(
+                                          color: Colors.redAccent.withOpacity(0.35),
+                                          blurRadius: 8,
+                                          spreadRadius: 2,
+                                        )
+                                      ]
+                                    : null,
+                              ),
+                              padding: const EdgeInsets.all(2),
+                              child: IconButton(
+                                icon: Icon(
+                                  voiceState.isRecording ? Icons.mic : Icons.mic_none,
+                                  color: voiceState.isRecording ? Colors.redAccent : null,
+                                  size: 26,
+                                ),
+                                onPressed: () {
+                                  ref.read(voiceBillingProvider.notifier).toggleRecording();
+                                },
+                              ),
+                            ),
                           );
                         },
                       ),
