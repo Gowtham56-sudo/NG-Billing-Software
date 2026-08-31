@@ -31,4 +31,32 @@ class SalesNotifier extends AsyncNotifier<List<Sale>> {
     );
     return maps.map((map) => SaleItem.fromMap(map)).toList();
   }
+
+  Future<void> clearAllSales() async {
+    final db = await SqliteService.database;
+    await db.transaction((txn) async {
+      await txn.delete('sale_items');
+      await txn.delete('sales');
+    });
+    await loadSales();
+  }
+
+  Future<void> clearTodaysSales() async {
+    final db = await SqliteService.database;
+    final todayStr = DateTime.now().toIso8601String().substring(0, 10);
+    await db.transaction((txn) async {
+      final List<Map<String, dynamic>> todaySales = await txn.query(
+        'sales',
+        columns: ['id'],
+        where: 'date LIKE ?',
+        whereArgs: ['$todayStr%'],
+      );
+      for (final s in todaySales) {
+        final id = s['id'] as int;
+        await txn.delete('sale_items', where: 'sale_id = ?', whereArgs: [id]);
+      }
+      await txn.delete('sales', where: 'date LIKE ?', whereArgs: ['$todayStr%']);
+    });
+    await loadSales();
+  }
 }

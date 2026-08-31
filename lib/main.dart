@@ -11,12 +11,16 @@ import 'features/products/screens/products_screen.dart';
 import 'features/customers/screens/customers_screen.dart';
 import 'features/sales/screens/sales_history_screen.dart';
 import 'core/widgets/app_shell.dart';
+import 'core/services/voice_backend_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Initialize Database
   await SqliteService.initDB();
+
+  // Automatically start Voice AI Backend in background (no manual python startup required!)
+  await VoiceBackendService.ensureVoiceBackendRunning();
 
   runApp(
     const ProviderScope(

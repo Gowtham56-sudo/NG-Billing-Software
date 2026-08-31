@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:fl_chart/fl_chart.dart';
 import '../providers/products_provider.dart';
+import '../../categories/providers/categories_provider.dart';
+import '../../categories/screens/categories_screen.dart';
 import '../../../models/product.dart';
+import '../../../models/category.dart';
 import '../../../database/sqlite_service.dart';
 
 class ProductsScreen extends ConsumerStatefulWidget {
@@ -14,7 +17,27 @@ class ProductsScreen extends ConsumerStatefulWidget {
 
 class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   String _searchQuery = '';
+  int? _selectedCategoryId;
   final TextEditingController _searchController = TextEditingController();
+
+  Color _getCategoryColor(int? catId) {
+    switch (catId) {
+      case 1:
+        return Colors.blue.shade700;
+      case 2:
+        return Colors.amber.shade800;
+      case 3:
+        return Colors.orange.shade700;
+      case 4:
+        return Colors.purple.shade700;
+      case 5:
+        return Colors.green.shade700;
+      case 6:
+        return Colors.deepOrange.shade700;
+      default:
+        return Colors.teal.shade700;
+    }
+  }
 
   @override
   void dispose() {
@@ -25,45 +48,53 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     final productsState = ref.watch(productsProvider);
+    final categoriesState = ref.watch(categoriesProvider);
+    final categories = categoriesState.value ?? [];
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Products Management'),
+        title: const Text('Products & Categories Management'),
         actions: [
+          TextButton.icon(
+            icon: const Icon(Icons.category, color: Colors.white),
+            label: const Text('Manage Categories', style: TextStyle(color: Colors.white)),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CategoriesScreen()),
+              );
+            },
+          ),
           IconButton(
             icon: const Icon(Icons.refresh),
             tooltip: 'Refresh Products',
-            onPressed: () => ref.read(productsProvider.notifier).loadProducts(),
+            onPressed: () {
+              ref.read(productsProvider.notifier).loadProducts();
+              ref.read(categoriesProvider.notifier).loadCategories();
+            },
           ),
         ],
       ),
       body: productsState.when(
         data: (products) {
-          final filteredProducts = _searchQuery.isEmpty
-              ? products
-              : products
-                    .where(
-                      (p) =>
-                          p.name.toLowerCase().contains(
-                            _searchQuery.toLowerCase(),
-                          ) ||
-                          (p.barcode?.toLowerCase().contains(
-                                _searchQuery.toLowerCase(),
-                              ) ??
-                              false),
-                    )
-                    .toList();
+          final filteredProducts = products.where((p) {
+            final matchesSearch = _searchQuery.isEmpty ||
+                p.name.toLowerCase().contains(_searchQuery.toLowerCase()) ||
+                (p.barcode?.toLowerCase().contains(_searchQuery.toLowerCase()) ?? false);
+            final matchesCategory = _selectedCategoryId == null || p.categoryId == _selectedCategoryId;
+            return matchesSearch && matchesCategory;
+          }).toList();
 
           return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                 child: TextField(
                   controller: _searchController,
                   decoration: InputDecoration(
                     labelText: 'Search Product Name or Barcode',
                     prefixIcon: const Icon(Icons.search),
-
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(8),
                     ),
@@ -77,6 +108,50 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                   },
                 ),
               ),
+              // Category Filter Bar
+              Container(
+                height: 48,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: FilterChip(
+                        selected: _selectedCategoryId == null,
+                        avatar: const Icon(Icons.grid_view, size: 16),
+                        label: Text('All Products (${products.length})'),
+                        onSelected: (selected) {
+                          setState(() => _selectedCategoryId = null);
+                        },
+                      ),
+                    ),
+                    ...categories.map((cat) {
+                      final count = products.where((p) => p.categoryId == cat.id).length;
+                      final isSelected = _selectedCategoryId == cat.id;
+                      final catColor = _getCategoryColor(cat.id);
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: FilterChip(
+                          selected: isSelected,
+                          selectedColor: catColor.withValues(alpha: 0.2),
+                          label: Text('${cat.name} ($count)'),
+                          labelStyle: TextStyle(
+                            color: isSelected ? catColor : Colors.black87,
+                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                          ),
+                          onSelected: (selected) {
+                            setState(() {
+                              _selectedCategoryId = selected ? cat.id : null;
+                            });
+                          },
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ),
+              const Divider(height: 16),
               if (filteredProducts.isEmpty)
                 const Expanded(
                   child: Center(
@@ -90,7 +165,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                         ),
                         SizedBox(height: 16),
                         Text(
-                          'No products found.',
+                          'No products found in this category.',
                           style: TextStyle(fontSize: 18, color: Colors.grey),
                         ),
                       ],
@@ -109,6 +184,12 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                         const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       final product = filteredProducts[index];
+                      final catName = categories
+                          .firstWhere((c) => c.id == product.categoryId,
+                              orElse: () => Category(name: 'General'))
+                          .name;
+                      final catColor = _getCategoryColor(product.categoryId);
+
                       return Card(
                         elevation: 2,
                         shape: RoundedRectangleBorder(
@@ -123,12 +204,35 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      '${product.name} (${product.unit})',
-                                      style: const TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          '${product.name} (${product.unit})',
+                                          style: const TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 8, vertical: 3),
+                                          decoration: BoxDecoration(
+                                            color: catColor.withValues(alpha: 0.12),
+                                            borderRadius: BorderRadius.circular(6),
+                                            border: Border.all(
+                                                color: catColor.withValues(alpha: 0.3)),
+                                          ),
+                                          child: Text(
+                                            catName,
+                                            style: TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.bold,
+                                              color: catColor,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                     const SizedBox(height: 8),
                                     Wrap(
@@ -251,6 +355,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
   }
 
   void _showAddProductDialog(BuildContext context, WidgetRef ref) {
+    final categories = ref.read(categoriesProvider).value ?? [];
     final nameController = TextEditingController();
     final barcodeController = TextEditingController();
     final purchasePriceController = TextEditingController();
@@ -262,6 +367,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
     final minStockController = TextEditingController();
     final unitValueController = TextEditingController(text: '1.0');
 
+    int? selectedCategoryId = categories.isNotEmpty ? categories.first.id : null;
     String selectedUnit = 'Piece';
     final List<String> units = [
       'Piece',
@@ -291,6 +397,19 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                           labelText: 'Product Name *',
                           border: OutlineInputBorder(),
                         ),
+                      ),
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<int>(
+                        value: selectedCategoryId,
+                        decoration: const InputDecoration(
+                          labelText: 'Category *',
+                          prefixIcon: Icon(Icons.category),
+                          border: OutlineInputBorder(),
+                        ),
+                        items: categories
+                            .map((c) => DropdownMenuItem(value: c.id, child: Text(c.name)))
+                            .toList(),
+                        onChanged: (val) => setState(() => selectedCategoryId = val),
                       ),
                       const SizedBox(height: 16),
                       Row(
@@ -517,6 +636,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
 
                     final product = Product(
                       name: nameController.text.trim(),
+                      categoryId: selectedCategoryId,
                       barcode: barcodeController.text.trim().isEmpty
                           ? null
                           : barcodeController.text.trim(),
@@ -549,12 +669,12 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
       },
     );
   }
-
   void _showEditProductDialog(
     BuildContext context,
     WidgetRef ref,
     Product product,
   ) {
+    final categories = ref.read(categoriesProvider).value ?? [];
     final nameController = TextEditingController(text: product.name);
     final barcodeController = TextEditingController(text: product.barcode);
     final purchasePriceController = TextEditingController(
@@ -582,6 +702,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
       text: product.unitValue.toString(),
     );
 
+    int? selectedCategoryId = product.categoryId ?? (categories.isNotEmpty ? categories.first.id : null);
     String selectedUnit = product.unit;
     final List<String> units = [
       'Piece',
@@ -612,6 +733,19 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                           labelText: 'Product Name *',
                           border: OutlineInputBorder(),
                         ),
+                      ),
+                      const SizedBox(height: 16),
+                      DropdownButtonFormField<int>(
+                        value: selectedCategoryId,
+                        decoration: const InputDecoration(
+                          labelText: 'Category *',
+                          prefixIcon: Icon(Icons.category),
+                          border: OutlineInputBorder(),
+                        ),
+                        items: categories
+                            .map((c) => DropdownMenuItem(value: c.id, child: Text(c.name)))
+                            .toList(),
+                        onChanged: (val) => setState(() => selectedCategoryId = val),
                       ),
                       const SizedBox(height: 16),
                       Row(
@@ -837,6 +971,7 @@ class _ProductsScreenState extends ConsumerState<ProductsScreen> {
                     final updatedProduct = Product(
                       id: product.id,
                       name: nameController.text.trim(),
+                      categoryId: selectedCategoryId,
                       barcode: barcodeController.text.trim().isEmpty
                           ? null
                           : barcodeController.text.trim(),

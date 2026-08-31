@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/categories_provider.dart';
+import '../../products/providers/products_provider.dart';
 import '../../../models/category.dart';
 
 class CategoriesScreen extends ConsumerWidget {
@@ -15,33 +16,11 @@ class CategoriesScreen extends ConsumerWidget {
         title: const Text('Categories Management'),
         actions: [
           IconButton(
-            icon: const Icon(Icons.delete_sweep),
-            tooltip: 'Clear All Categories',
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: const Text('Clear All Categories?'),
-                  content: const Text('Are you sure you want to delete all categories? This action cannot be undone.'),
-                  actions: [
-                    TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
-                      onPressed: () {
-                        ref.read(categoriesProvider.notifier).clearAllCategories();
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Delete All'),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-          IconButton(
             icon: const Icon(Icons.refresh),
-            tooltip: 'Refresh',
-            onPressed: () => ref.read(categoriesProvider.notifier).loadCategories(),
+            tooltip: 'Refresh Categories',
+            onPressed: () {
+              ref.read(categoriesProvider.notifier).loadCategories();
+            },
           ),
         ],
       ),
@@ -63,10 +42,10 @@ class CategoriesScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(16.0),
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 300,
+                maxCrossAxisExtent: 340,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                childAspectRatio: 2.5,
+                childAspectRatio: 2.3,
               ),
               itemCount: categories.length,
               itemBuilder: (context, index) {
@@ -74,10 +53,8 @@ class CategoriesScreen extends ConsumerWidget {
                 return _AnimatedCategoryCard(
                   category: category,
                   index: index,
-                  onDelete: () => ref.read(categoriesProvider.notifier).deleteCategory(category.id!),
-                  onEdit: () {
-                    // TODO: Implement edit
-                  },
+                  onDelete: () => _confirmDeleteCategory(context, ref, category),
+                  onEdit: () => _showEditCategoryDialog(context, ref, category),
                 );
               },
             ),
@@ -106,16 +83,28 @@ class CategoriesScreen extends ConsumerWidget {
           title: const Text('Add New Category'),
           content: TextField(
             controller: nameController,
-            decoration: const InputDecoration(labelText: 'Category Name', border: OutlineInputBorder()),
+            autofocus: true,
+            decoration: const InputDecoration(
+              labelText: 'Category Name *',
+              border: OutlineInputBorder(),
+              hintText: 'e.g. Frozen Foods, Stationery',
+            ),
           ),
           actions: [
             TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
             ElevatedButton(
-              onPressed: () {
-                if (nameController.text.isNotEmpty) {
-                  final category = Category(name: nameController.text);
-                  ref.read(categoriesProvider.notifier).addCategory(category);
-                  Navigator.pop(context);
+              onPressed: () async {
+                final name = nameController.text.trim();
+                if (name.isNotEmpty) {
+                  final category = Category(name: name);
+                  await ref.read(categoriesProvider.notifier).addCategory(category);
+                  ref.read(productsProvider.notifier).loadProducts();
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Category "$name" created successfully!')),
+                    );
+                  }
                 }
               },
               child: const Text('Save'),
@@ -123,6 +112,74 @@ class CategoriesScreen extends ConsumerWidget {
           ],
         );
       },
+    );
+  }
+
+  void _showEditCategoryDialog(BuildContext context, WidgetRef ref, Category category) {
+    final nameController = TextEditingController(text: category.name);
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Edit Category: ${category.name}'),
+          content: TextField(
+            controller: nameController,
+            autofocus: true,
+            decoration: const InputDecoration(
+              labelText: 'Category Name *',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          actions: [
+            TextButton(onPressed: () => Navigator.pop(context), child: const Text('Cancel')),
+            ElevatedButton(
+              onPressed: () async {
+                final name = nameController.text.trim();
+                if (name.isNotEmpty) {
+                  final updatedCategory = Category(id: category.id, name: name);
+                  await ref.read(categoriesProvider.notifier).updateCategory(updatedCategory);
+                  ref.read(productsProvider.notifier).loadProducts();
+                  if (context.mounted) {
+                    Navigator.pop(context);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Category updated to "$name"!')),
+                    );
+                  }
+                }
+              },
+              child: const Text('Update'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _confirmDeleteCategory(BuildContext context, WidgetRef ref, Category category) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Delete Category'),
+        content: Text('Are you sure you want to delete "${category.name}"?'),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.red, foregroundColor: Colors.white),
+            onPressed: () async {
+              await ref.read(categoriesProvider.notifier).deleteCategory(category.id!);
+              ref.read(productsProvider.notifier).loadProducts();
+              if (context.mounted) {
+                Navigator.pop(ctx);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Category "${category.name}" deleted.')),
+                );
+              }
+            },
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -155,20 +212,20 @@ class _AnimatedCategoryCardState extends State<_AnimatedCategoryCard> with Singl
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 600),
+      duration: const Duration(milliseconds: 500),
     );
     
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0).animate(
+    _scaleAnimation = Tween<double>(begin: 0.85, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval((widget.index * 0.1).clamp(0.0, 1.0), 1.0, curve: Curves.easeOutBack),
+        curve: Interval((widget.index * 0.08).clamp(0.0, 1.0), 1.0, curve: Curves.easeOutBack),
       ),
     );
     
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(
         parent: _controller,
-        curve: Interval((widget.index * 0.1).clamp(0.0, 1.0), 1.0, curve: Curves.easeIn),
+        curve: Interval((widget.index * 0.08).clamp(0.0, 1.0), 1.0, curve: Curves.easeIn),
       ),
     );
 
@@ -183,13 +240,13 @@ class _AnimatedCategoryCardState extends State<_AnimatedCategoryCard> with Singl
 
   @override
   Widget build(BuildContext context) {
-    // Generate a beautiful gradient color based on the index
     final List<List<Color>> gradients = [
       [Colors.purple.shade400, Colors.deepPurple.shade700],
       [Colors.orange.shade400, Colors.deepOrange.shade700],
       [Colors.teal.shade400, Colors.teal.shade700],
       [Colors.pink.shade400, Colors.red.shade700],
       [Colors.blue.shade400, Colors.indigo.shade700],
+      [Colors.amber.shade700, Colors.orange.shade800],
     ];
     
     final gradientColors = gradients[widget.index % gradients.length];
@@ -206,7 +263,7 @@ class _AnimatedCategoryCardState extends State<_AnimatedCategoryCard> with Singl
               onExit: (_) => setState(() => _isHovered = false),
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                transform: Matrix4.translationValues(0, _isHovered ? -5 : 0, 0),
+                transform: Matrix4.translationValues(0, _isHovered ? -4 : 0, 0),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
                   gradient: LinearGradient(
@@ -216,8 +273,8 @@ class _AnimatedCategoryCardState extends State<_AnimatedCategoryCard> with Singl
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: gradientColors.last.withValues(alpha: _isHovered ? 0.4 : 0.2),
-                      blurRadius: _isHovered ? 15 : 8,
+                      color: gradientColors.last.withValues(alpha: _isHovered ? 0.45 : 0.2),
+                      blurRadius: _isHovered ? 14 : 6,
                       offset: const Offset(0, 4),
                     ),
                   ],
@@ -233,45 +290,41 @@ class _AnimatedCategoryCardState extends State<_AnimatedCategoryCard> with Singl
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Text(
-                          widget.category.name.substring(0, 1).toUpperCase(),
+                          widget.category.name.isNotEmpty ? widget.category.name.substring(0, 1).toUpperCase() : 'C',
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 24,
+                            fontSize: 22,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
-                      const SizedBox(width: 16),
+                      const SizedBox(width: 14),
                       Expanded(
                         child: Text(
                           widget.category.name,
                           style: const TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            letterSpacing: 0.5,
+                            letterSpacing: 0.3,
                           ),
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 200),
-                        opacity: _isHovered ? 1.0 : 0.6,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.edit, color: Colors.white70),
-                              onPressed: widget.onEdit,
-                              tooltip: 'Edit',
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.delete, color: Colors.white70),
-                              onPressed: widget.onDelete,
-                              tooltip: 'Delete',
-                            ),
-                          ],
-                        ),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.edit, color: Colors.white, size: 20),
+                            onPressed: widget.onEdit,
+                            tooltip: 'Edit Category',
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete_outline, color: Colors.white70, size: 20),
+                            onPressed: widget.onDelete,
+                            tooltip: 'Delete Category',
+                          ),
+                        ],
                       ),
                     ],
                   ),

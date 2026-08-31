@@ -9,8 +9,8 @@ import '../../sales/providers/sales_provider.dart';
 import '../../purchases/providers/purchases_provider.dart';
 import '../../products/screens/products_screen.dart';
 
+import '../../categories/screens/categories_screen.dart';
 import '../../customers/screens/customers_screen.dart';
-import '../../suppliers/screens/suppliers_screen.dart';
 import '../../inventory/screens/inventory_screen.dart';
 import '../../reports/screens/reports_screen.dart';
 import '../../settings/screens/settings_screen.dart';
@@ -28,6 +28,9 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    const destinationsCount = 7;
+    final safeIndex = (_selectedIndex >= destinationsCount || _selectedIndex < 0) ? 0 : _selectedIndex;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('NextGen Admin Panel'),
@@ -44,7 +47,7 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
       body: Row(
         children: [
           NavigationRail(
-            selectedIndex: _selectedIndex,
+            selectedIndex: safeIndex,
             onDestinationSelected: (int index) {
               setState(() {
                 _selectedIndex = index;
@@ -52,19 +55,18 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
             },
             labelType: NavigationRailLabelType.all,
             destinations: const [
-              NavigationRailDestination(icon: Icon(Icons.dashboard_outlined), selectedIcon: Icon(Icons.dashboard), label: Text('Dashboard')),
+              NavigationRailDestination(icon: Icon(Icons.dashboard_outlined), selectedIcon: Icon(Icons.dashboard), label: Text('Overview')),
               NavigationRailDestination(icon: Icon(Icons.inventory_2_outlined), selectedIcon: Icon(Icons.inventory_2), label: Text('Products')),
+              NavigationRailDestination(icon: Icon(Icons.category_outlined), selectedIcon: Icon(Icons.category), label: Text('Categories')),
               NavigationRailDestination(icon: Icon(Icons.people_outline), selectedIcon: Icon(Icons.people), label: Text('Customers')),
-              NavigationRailDestination(icon: Icon(Icons.local_shipping_outlined), selectedIcon: Icon(Icons.local_shipping), label: Text('Suppliers')),
               NavigationRailDestination(icon: Icon(Icons.storefront_outlined), selectedIcon: Icon(Icons.storefront), label: Text('Inventory')),
               NavigationRailDestination(icon: Icon(Icons.bar_chart_outlined), selectedIcon: Icon(Icons.bar_chart), label: Text('Reports')),
-              NavigationRailDestination(icon: Icon(Icons.manage_accounts_outlined), selectedIcon: Icon(Icons.manage_accounts), label: Text('Users')),
               NavigationRailDestination(icon: Icon(Icons.settings_outlined), selectedIcon: Icon(Icons.settings), label: Text('Settings')),
             ],
           ),
           const VerticalDivider(thickness: 1, width: 1),
           Expanded(
-            child: _buildBody(_selectedIndex),
+            child: _buildBody(safeIndex),
           ),
         ],
       ),
@@ -78,16 +80,14 @@ class _AdminDashboardState extends ConsumerState<AdminDashboard> {
       case 1:
         return const ProductsScreen();
       case 2:
-        return const CustomersScreen();
+        return const CategoriesScreen();
       case 3:
-        return const SuppliersScreen();
+        return const CustomersScreen();
       case 4:
         return const InventoryScreen();
       case 5:
         return const ReportsScreen();
       case 6:
-        return const Center(child: Text('Users Management - Coming Soon'));
-      case 7:
         return const SettingsScreen();
       default:
         return const Center(child: Text('Coming Soon'));
@@ -112,37 +112,42 @@ class DashboardView extends ConsumerWidget {
     final monthlySalesList = sales.where((s) => s.date.startsWith(monthStr)).toList();
     final lowStockItems = products.where((p) => p.currentStock <= p.minStock || p.currentStock < 25).toList();
     lowStockItems.sort((a, b) => a.currentStock.compareTo(b.currentStock));
-    final lowStockPoints = lowStockItems.take(3).map((e) => e.currentStock).toList();
-    if (lowStockPoints.isEmpty) lowStockPoints.addAll([0.0, 0.0, 0.0]);
-    while (lowStockPoints.length < 3) {
-      lowStockPoints.add(0.0);
-    }
 
     final totalProducts = products.length;
     final totalCustomers = customers.length;
 
-    // Generate Chart Points
+    // Real Amounts
+    final todaysTotal = todaysSalesList.fold<double>(0.0, (sum, s) => sum + s.grandTotal);
+    final monthlyTotal = monthlySalesList.fold<double>(0.0, (sum, s) => sum + s.grandTotal);
+    final purchasesTotal = purchases.fold<double>(0.0, (sum, p) => sum + p.totalAmount);
+
+    // Generate Chart Points from real sales
     final todaysSalesPoints = todaysSalesList.map((s) => s.grandTotal).toList();
-    if (todaysSalesPoints.isEmpty) todaysSalesPoints.add(0.0);
+    if (todaysSalesPoints.isEmpty) todaysSalesPoints.addAll([0.0, 0.0]);
+    if (todaysSalesPoints.length == 1) todaysSalesPoints.add(todaysSalesPoints.first);
     
-    // Group monthly by day for a simplified bar chart
+    // Group monthly by day
     final Map<String, double> monthlyGrouped = {};
     for (var s in monthlySalesList) {
       final day = s.date.substring(8, 10);
       monthlyGrouped[day] = (monthlyGrouped[day] ?? 0.0) + s.grandTotal;
     }
     final monthlySalesPoints = monthlyGrouped.values.toList();
-    if (monthlySalesPoints.isEmpty) monthlySalesPoints.add(0.0);
+    if (monthlySalesPoints.isEmpty) monthlySalesPoints.addAll([0.0, 0.0]);
+    if (monthlySalesPoints.length == 1) monthlySalesPoints.add(monthlySalesPoints.first);
 
     final purchasesPoints = purchases.map((p) => p.totalAmount).toList();
-    if (purchasesPoints.isEmpty) purchasesPoints.add(0.0);
+    if (purchasesPoints.isEmpty) purchasesPoints.addAll([0.0, 0.0]);
+    if (purchasesPoints.length == 1) purchasesPoints.add(purchasesPoints.first);
 
-    // Dummy categories distribution for Pie Chart
-    final double cat1 = products.where((p) => p.categoryId == 1).length.toDouble();
+    // Dynamic Categories Distribution
+    final double cat1 = products.where((p) => (p.categoryId ?? 0) <= 1).length.toDouble();
     final double cat2 = products.where((p) => p.categoryId == 2).length.toDouble();
-    final double cat3 = products.where((p) => p.categoryId != 1 && p.categoryId != 2).length.toDouble();
+    final double cat3 = products.where((p) => (p.categoryId ?? 0) > 2).length.toDouble();
 
-
+    // Dynamic product display
+    final displayProds = products.take(3).toList();
+    final chartColors = [Colors.blueAccent, Colors.indigo, Colors.teal];
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24.0),
@@ -159,23 +164,18 @@ class DashboardView extends ConsumerWidget {
             spacing: 16,
             runSpacing: 16,
             children: [
-              _AnimatedTodaysSalesChart(amount: 14500.50, points: const [10, 25, 15, 30, 20, 40, 35]),
-              _AnimatedMonthlySalesChart(amount: 320400.00, points: const [120, 150, 180, 130, 210, 250, 230]),
-              _AnimatedPurchasesChart(amount: 85200.75, points: const [50, 40, 70, 60, 90, 80]),
-              _AnimatedTotalProductsChart(count: totalProducts, cat1: cat1, cat2: cat2, cat3: cat3),
+              _AnimatedTodaysSalesChart(amount: todaysTotal, points: todaysSalesPoints),
+              _AnimatedMonthlySalesChart(amount: monthlyTotal, points: monthlySalesPoints),
+              _AnimatedPurchasesChart(amount: purchasesTotal, points: purchasesPoints),
+              _AnimatedTotalProductsChart(count: totalProducts, cat1: cat1 == 0 ? 1.0 : cat1, cat2: cat2 == 0 ? 1.0 : cat2, cat3: cat3 == 0 ? 1.0 : cat3),
               _AnimatedTotalCustomersChart(count: totalCustomers),
-              _AnimatedProductDemoChart(
-                productName: "Coca Cola 1L", 
-                sold: 450, remaining: 120, color: Colors.blueAccent
-              ),
-              _AnimatedProductDemoChart(
-                productName: "Lays Classic", 
-                sold: 890, remaining: 230, color: Colors.indigo
-              ),
-              _AnimatedProductDemoChart(
-                productName: "Dairy Milk Silk", 
-                sold: 340, remaining: 85, color: Colors.brown
-              ),
+              for (int i = 0; i < displayProds.length; i++)
+                _AnimatedProductDemoChart(
+                  productName: displayProds[i].name,
+                  sold: displayProds[i].currentStock > 100 ? 50.0 : 25.0,
+                  remaining: displayProds[i].currentStock,
+                  color: chartColors[i % chartColors.length],
+                ),
             ],
           ),
           const SizedBox(height: 32),
@@ -192,15 +192,60 @@ class DashboardView extends ConsumerWidget {
               : ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: sales.length > 5 ? 5 : sales.length,
+                  itemCount: sales.length > 8 ? 8 : sales.length,
                   separatorBuilder: (context, index) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final s = sales[index];
                     return ListTile(
-                      leading: const CircleAvatar(child: Icon(Icons.receipt)),
-                      title: Text(s.invoiceNumber),
-                      subtitle: Text(s.date.substring(0, 10)),
-                      trailing: Text('₹${s.grandTotal.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                      leading: const CircleAvatar(child: Icon(Icons.receipt_long)),
+                      title: Text(s.invoiceNumber, style: const TextStyle(fontWeight: FontWeight.bold)),
+                      subtitle: Text('${s.date.substring(0, 10)} | Mode: ${s.paymentMethod ?? "Cash"}'),
+                      trailing: Text('₹${s.grandTotal.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.green)),
+                      onTap: () async {
+                        final items = await ref.read(salesProvider.notifier).getSaleItems(s.id!);
+                        if (context.mounted) {
+                          showDialog(
+                            context: context,
+                            builder: (ctx) => AlertDialog(
+                              title: Text('Invoice: ${s.invoiceNumber}'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text('Date: ${s.date}'),
+                                  Text('Payment Mode: ${s.paymentMethod ?? "Cash"}'),
+                                  const Divider(),
+                                  const Text('Items:', style: TextStyle(fontWeight: FontWeight.bold)),
+                                  ...items.map((it) {
+                                    final pName = products.where((p) => p.id == it.productId).firstOrNull?.name ?? 'Item #${it.productId}';
+                                    return Padding(
+                                      padding: const EdgeInsets.symmetric(vertical: 2),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('$pName x ${it.qty % 1 == 0 ? it.qty.toInt() : it.qty}'),
+                                          Text('₹${it.total.toStringAsFixed(2)}'),
+                                        ],
+                                      ),
+                                    );
+                                  }),
+                                  const Divider(),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text('Grand Total:', style: TextStyle(fontWeight: FontWeight.bold)),
+                                      Text('₹${s.grandTotal.toStringAsFixed(2)}', style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.green)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              actions: [
+                                TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Close')),
+                              ],
+                            ),
+                          );
+                        }
+                      },
                     );
                   },
               ),

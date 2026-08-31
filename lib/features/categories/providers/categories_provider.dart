@@ -12,7 +12,7 @@ class CategoriesNotifier extends AsyncNotifier<List<Category>> {
 
   Future<List<Category>> _fetchCategories() async {
     final db = await SqliteService.database;
-    final List<Map<String, dynamic>> maps = await db.query('categories');
+    final List<Map<String, dynamic>> maps = await db.query('categories', orderBy: 'id ASC');
     return maps.map((map) => Category.fromMap(map)).toList();
   }
 
@@ -35,6 +35,16 @@ class CategoriesNotifier extends AsyncNotifier<List<Category>> {
     try {
       final db = await SqliteService.database;
       await db.insert('categories', category.toMap());
+      await loadCategories();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> updateCategory(Category category) async {
+    try {
+      final db = await SqliteService.database;
+      await db.update('categories', category.toMap(), where: 'id = ?', whereArgs: [category.id]);
       await loadCategories();
     } catch (e) {
       rethrow;

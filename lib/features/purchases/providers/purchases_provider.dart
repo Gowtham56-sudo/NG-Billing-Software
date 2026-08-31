@@ -52,4 +52,13 @@ class PurchasesNotifier extends AsyncNotifier<List<Purchase>> {
       rethrow;
     }
   }
+
+  Future<void> clearAllPurchases() async {
+    final db = await SqliteService.database;
+    await db.transaction((txn) async {
+      await txn.delete('purchase_items');
+      await txn.delete('purchases');
+    });
+    await loadPurchases();
+  }
 }

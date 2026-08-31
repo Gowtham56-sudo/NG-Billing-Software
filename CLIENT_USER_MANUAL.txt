@@ -1,0 +1,64 @@
+================================================================================
+           NEXTGEN AI VOICE BILLING & POS SOFTWARE - CLIENT USER MANUAL
+================================================================================
+
+Welcome to NextGen Billing Software!
+This is a modern, high-speed Supermarket & Retail POS software equipped with
+Smart AI Voice Billing in Tamil & English, GST Invoicing, Inventory Management,
+and Thermal Receipt Printing.
+
+--------------------------------------------------------------------------------
+1. QUICK START (HOW TO RUN)
+--------------------------------------------------------------------------------
+1. Extract the "NextGen_Billing_App_v1.0" folder to your computer (e.g. C:\NextGen or Desktop).
+2. Double-click "Launch_NextGen_Billing.vbs" (or "Start_NextGen_Billing.bat").
+3. The software will open immediately, with the AI Voice engine active in the background.
+
+--------------------------------------------------------------------------------
+2. DEFAULT LOGIN CREDENTIALS
+--------------------------------------------------------------------------------
+- Role: Admin
+- Username: admin
+- Password: admin
+(You can also log in as Cashier: cashier / cashier123)
+
+--------------------------------------------------------------------------------
+3. SMART VOICE BILLING COMMANDS
+--------------------------------------------------------------------------------
+Open the Cashier screen and click the "Voice Billing" microphone button.
+Speak naturally in Tamil, English, or Thanglish:
+
+A. Adding Products to Cart:
+   - "Rendu aavin milk podu"          -> Adds 2 units of Aavin Milk
+   - "Add 1 sun pure oil"             -> Adds 1 unit of Sun Pure Oil
+   - "500 gram sugar kudu"            -> Adds 500g Sugar
+   - "Moonu clinic plus shampoo"      -> Adds 3 Clinic Plus Shampoo sachets
+
+B. Editing & Quantity Modifiers:
+   - "Aavin milk qty 3 ah maathu"     -> Updates quantity to 3
+   - "Remove oil"                     -> Deletes oil from current bill
+
+C. Discounts & Finalizing:
+   - "10 percent discount podu"       -> Applies 10% instant discount
+   - "Cash payment"                   -> Selects Cash mode
+   - "Print bill"                     -> Generates and prints thermal tax invoice
+
+--------------------------------------------------------------------------------
+4. KEY POS FEATURES
+--------------------------------------------------------------------------------
+- Product Management: Add, edit, barcoding, unit-value mapping, and 6 smart category tabs.
+- Category Management: Create, edit, and reorganize supermarket aisles/departments.
+- Customer Ledger: Track pending credit balances and customer phone numbers.
+- Analytics & Reports: Daily/Monthly Sales, Stock alerts, GST Tax collections, and 1-Click Excel CSV Export.
+- Database & Backup: 1-Click SQLite Database Backup to Desktop in Settings.
+
+--------------------------------------------------------------------------------
+5. HARDWARE REQUIREMENTS
+--------------------------------------------------------------------------------
+- Operating System: Windows 10 / 11 (64-bit)
+- Processor: Intel Core i3 / AMD Ryzen 3 or higher
+- RAM: 4 GB minimum (8 GB recommended)
+- Storage: SSD recommended for instant boot (< 10 sec)
+- Microphone: USB Counter Microphone / Headset for Voice Billing
+- Thermal Printer: Any standard 58mm / 80mm ESC/POS USB or Bluetooth printer
+================================================================================

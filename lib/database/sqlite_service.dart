@@ -33,6 +33,22 @@ class SqliteService {
       ),
     );
 
+    // Ensure default categories exist
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (1, 'Dairy & Beverages')");
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (2, 'Oils & Ghee')");
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (3, 'Snacks & Bakery')");
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (4, 'Personal Care & Hygiene')");
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (5, 'Grains, Flours & Dals')");
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (6, 'Spices & Masalas')");
+    await db.execute("INSERT OR IGNORE INTO categories (id, name) VALUES (7, 'Fresh Vegetables & Greens')");
+
+    // Ensure initial products have category_id assigned
+    await db.rawUpdate("UPDATE products SET category_id = 1 WHERE category_id IS NULL AND (name LIKE '%milk%' OR name LIKE '%aavin%' OR name LIKE '%tea%' OR name LIKE '%coffee%')");
+    await db.rawUpdate("UPDATE products SET category_id = 2 WHERE category_id IS NULL AND (name LIKE '%oil%' OR name LIKE '%ghee%')");
+    await db.rawUpdate("UPDATE products SET category_id = 3 WHERE category_id IS NULL AND (name LIKE '%biscuit%' OR name LIKE '%cake%' OR name LIKE '%cookie%')");
+    await db.rawUpdate("UPDATE products SET category_id = 4 WHERE category_id IS NULL AND (name LIKE '%shampoo%' OR name LIKE '%soap%' OR name LIKE '%blade%' OR name LIKE '%paste%')");
+    await db.rawUpdate("UPDATE products SET category_id = 7 WHERE category_id IS NULL AND (name LIKE '%tomato%' OR name LIKE '%onion%' OR name LIKE '%potato%' OR name LIKE '%carrot%' OR name LIKE '%beans%' OR name LIKE '%brinjal%' OR name LIKE '%cabbage%' OR name LIKE '%chilli%' OR name LIKE '%ginger%' OR name LIKE '%garlic%' OR name LIKE '%lemon%' OR name LIKE '%keerai%' OR name LIKE '%leaves%')");
+
     // Ensure the default admin password is set to 'root' for existing databases
     await db.execute("UPDATE users SET password_hash = 'root' WHERE username = 'admin'");
     
