@@ -72,6 +72,20 @@ class CartNotifier extends Notifier<CartState> {
     );
   }
 
+  void changeVariant(int oldProductId, Product newProduct) {
+    final index = state.items.indexWhere((item) => item.product.id == oldProductId);
+    if (index >= 0) {
+      final oldItem = state.items[index];
+      final newItems = List<CartItem>.from(state.items);
+      newItems[index] = CartItem(
+        product: newProduct,
+        quantity: oldItem.quantity,
+        discount: 0.0,
+      );
+      state = state.copyWith(items: newItems);
+    }
+  }
+
   void updateQuantity(int productId, double quantity) {
     final newItems = state.items.map((item) {
       if (item.product.id == productId) {
@@ -96,6 +110,22 @@ class CartNotifier extends Notifier<CartState> {
     final newItems = state.items.map((item) {
       if (item.product.id == productId) {
         return item.copyWith(customPrice: price);
+      }
+      return item;
+    }).toList();
+    state = state.copyWith(items: newItems);
+  }
+
+  void updateTotalAmount(int productId, double targetAmount) {
+    final newItems = state.items.map((item) {
+      if (item.product.id == productId) {
+        final unitPrice = item.getPrice(state.saleType);
+        if (unitPrice > 0) {
+          final gstMultiplier = 1.0 + (item.product.gstPercentage / 100.0);
+          final rawQty = ((targetAmount / gstMultiplier) + item.discount) / unitPrice;
+          final qty = (rawQty * 1000).round() / 1000.0;
+          return item.copyWith(quantity: qty > 0 ? qty : 0.001);
+        }
       }
       return item;
     }).toList();

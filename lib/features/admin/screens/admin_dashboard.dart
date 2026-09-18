@@ -110,7 +110,7 @@ class DashboardView extends ConsumerWidget {
 
     final todaysSalesList = sales.where((s) => s.date.startsWith(todayStr)).toList();
     final monthlySalesList = sales.where((s) => s.date.startsWith(monthStr)).toList();
-    final lowStockItems = products.where((p) => p.currentStock <= p.minStock || p.currentStock < 25).toList();
+    final lowStockItems = products.where((p) => p.currentStock <= p.minStock).toList();
     lowStockItems.sort((a, b) => a.currentStock.compareTo(b.currentStock));
 
     final totalProducts = products.length;

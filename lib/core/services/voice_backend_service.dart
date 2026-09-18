@@ -42,9 +42,12 @@ class VoiceBackendService {
         return;
       }
 
-      // Check for bundled venv Python or system Python
+      // Check for standalone portable Python runtime first, then bundled venv, then system Python
+      final runtimePython = p.join(voiceDir, 'python_runtime', 'python.exe');
       final venvPython = p.join(voiceDir, 'venv', 'Scripts', 'python.exe');
-      final pythonExe = File(venvPython).existsSync() ? venvPython : 'python';
+      final pythonExe = File(runtimePython).existsSync()
+          ? runtimePython
+          : (File(venvPython).existsSync() ? venvPython : 'python');
 
       debugPrint('[VoiceBackendService] Launching Voice AI Server from: $voiceDir using $pythonExe');
 

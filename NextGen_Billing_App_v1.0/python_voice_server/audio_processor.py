@@ -1,6 +1,5 @@
 import queue
 import time
-import webrtcvad
 import numpy as np
 import sounddevice as sd
 from faster_whisper import WhisperModel
@@ -12,9 +11,7 @@ class AudioProcessor:
         self.sample_rate = sample_rate
         self.chunk_duration_ms = chunk_duration_ms
         self.on_transcription_ready = on_transcription_ready
-        self.chunk_size = int(self.sample_rate * self.chunk_duration_ms / 1000)
-        
-        self.vad = webrtcvad.Vad(1) 
+        self.chunk_size = int(self.sample_rate * self.chunk_duration_ms / 1000) 
         
         # Smart mic auto-detection (prioritize Microphone Array over disconnected jack)
         device_idx = os.getenv("AUDIO_DEVICE_INDEX")
@@ -38,13 +35,21 @@ class AudioProcessor:
         dev_info = sd.query_devices(self.device_index) if self.device_index is not None else "Default"
         print(f"Using Microphone: [Device {self.device_index}] {dev_info}")
 
-        print(f"Loading Whisper model ({model_size})...")
+        cpu_threads = max(1, (os.cpu_count() or 4))
+        
+        # Check for local bundled offline model first for 100% offline instant startup
+        local_model_path = os.path.join(os.path.dirname(__file__), "models", f"faster-whisper-{model_size}")
+        if not os.path.exists(local_model_path):
+            local_model_path = os.path.join(os.path.dirname(__file__), "models", "faster-whisper-base")
+            
+        load_target = local_model_path if (os.path.exists(local_model_path) and os.path.exists(os.path.join(local_model_path, "model.bin"))) else model_size
+        print(f"Loading Whisper model from: {load_target} with {cpu_threads} CPU threads...")
         try:
-            self.model = WhisperModel(model_size, device="cpu", compute_type="int8")
+            self.model = WhisperModel(load_target, device="cpu", compute_type="int8", cpu_threads=cpu_threads)
         except Exception as e:
-            print(f"Failed to load {model_size}, falling back to tiny: {e}")
-            self.model = WhisperModel("tiny", device="cpu", compute_type="int8")
-        print("Model loaded.")
+            print(f"Failed to load {load_target}, falling back to {model_size}: {e}")
+            self.model = WhisperModel(model_size, device="cpu", compute_type="int8", cpu_threads=cpu_threads)
+        print("Model loaded successfully.")
         
         self.is_recording = False
         self.audio_queue = queue.Queue()
@@ -62,36 +67,42 @@ class AudioProcessor:
         buffered_audio = bytearray()
         silence_duration = 0.0
         speech_duration = 0.0
-        max_silence_duration = 0.35  # 350ms of pause triggers transcription immediately
-        ambient_noise = 200.0
+        max_silence_duration = 0.18  # Fast pause: 180ms pause triggers instant transcription
+        max_speech_chunk = 1.5       # Fast streaming chunk: 1.5 seconds maximum continuous speech window
+        ambient_noise = 150.0
         
         while self.is_recording:
             try:
-                frame = self.audio_queue.get(timeout=0.1)
+                frame = self.audio_queue.get(timeout=0.03)
                 
                 # Check amplitude / energy
                 samples = np.frombuffer(frame, dtype=np.int16)
                 energy = float(np.abs(samples).mean())
                 
-                # Adaptive speech detection
-                threshold = max(ambient_noise * 1.5, 800.0)
+                # Adaptive speech threshold
+                threshold = max(ambient_noise * 1.2, 100.0)
                 is_speech = energy > threshold
                 
                 if is_speech:
                     buffered_audio.extend(frame)
                     speech_duration += self.chunk_duration_ms / 1000.0
                     silence_duration = 0.0
+                    
+                    if speech_duration >= max_speech_chunk:
+                        self._transcribe_buffer(buffered_audio)
+                        overlap_bytes = int(self.sample_rate * 0.20 * 2)
+                        buffered_audio = bytearray(buffered_audio[-overlap_bytes:])
+                        speech_duration = 0.20
+                        silence_duration = 0.0
                 else:
-                    # Update background noise level smoothly when quiet
                     ambient_noise = 0.95 * ambient_noise + 0.05 * energy
                     
                     if len(buffered_audio) > 0:
                         buffered_audio.extend(frame)
                         silence_duration += self.chunk_duration_ms / 1000.0
                         
-                        # Trigger live transcription as soon as you pause speaking
                         if silence_duration >= max_silence_duration:
-                            if speech_duration >= 0.2:
+                            if speech_duration >= 0.15:
                                 self._transcribe_buffer(buffered_audio)
                             buffered_audio.clear()
                             silence_duration = 0.0
@@ -100,34 +111,50 @@ class AudioProcessor:
                 continue
                 
         # Final flush
-        if len(buffered_audio) > 0 and speech_duration >= 0.2:
+        if len(buffered_audio) > 0 and speech_duration >= 0.15:
             self._transcribe_buffer(buffered_audio)
 
     def _transcribe_buffer(self, byte_data):
-        # Convert bytes to numpy float32 array (-1.0 to 1.0)
         audio_int16 = np.frombuffer(byte_data, dtype=np.int16)
         audio_float32 = audio_int16.astype(np.float32) / 32768.0
         
-        # Minimum audio length for transcription
-        if len(audio_float32) < self.sample_rate * 0.2:
+        if len(audio_float32) < self.sample_rate * 0.15:
             return
             
-        # Peak normalize to ensure quiet speech is clearly heard
         max_abs = np.max(np.abs(audio_float32))
-        if max_abs > 0.005:
+        if max_abs > 0.002:
             audio_float32 = (audio_float32 / max_abs) * 0.95
             
-        initial_prompt = "Aavin milk, aavin milk gold, 500ml, 250ml, 1L, sunflower oil, clinic plus shampoo, biscuit, cake, packet, kilo, litre, gram, kaal, ara, mukka, onnu, rendu, moonu, naalu, anju, aaru, ezhu, ettu, ombadhu, pathu, irubadhu, muppadhu, naarpadhu, aimbadhu, nooru, thool, paruppu, arisi, maavu, soap, paste, brush"
+        initial_prompt = "Customer billing list: 2 tomato, 1kg onion, 500g Aachi Chilli Powder, 100g Sakthi Turmeric, 1L Gold Winner Sunflower Oil, 500ml Aavin Milk, Toor Dal, Atta, Green Chilli, Bread, Biscuit, 20 rupees."
         
         segments, info = self.model.transcribe(
             audio_float32, 
-            beam_size=1, # Greedy search: 3x-5x faster on CPU!
+            language="en",
+            beam_size=1,
             best_of=1,
-            condition_on_previous_text=False, # Prevents loop hallucinations
-            vad_filter=True,
+            temperature=0.0,
+            compression_ratio_threshold=2.4,
+            log_prob_threshold=-1.0,
+            no_speech_threshold=0.6,
+            repetition_penalty=1.25,
+            no_repeat_ngram_size=2,
+            without_timestamps=True,
+            condition_on_previous_text=False,
+            vad_filter=False,
             initial_prompt=initial_prompt
         )
         text = " ".join([segment.text for segment in segments]).strip()
+        
+        # Deduplicate repetition loops (e.g. "kudu kudu kudu kudu")
+        if text:
+            words = text.split()
+            if len(words) >= 2:
+                # Remove consecutive duplicate words
+                deduped = []
+                for w in words:
+                    if not deduped or deduped[-1].lower() != w.lower():
+                        deduped.append(w)
+                text = " ".join(deduped).strip()
         
         if text:
             with self.transcript_lock:

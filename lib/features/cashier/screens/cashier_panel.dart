@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/cart_provider.dart';
+import '../models/cart_item.dart';
 import '../../../models/product.dart';
 import '../../products/providers/products_provider.dart';
 import '../../customers/providers/customers_provider.dart';
@@ -10,6 +11,7 @@ import '../../../database/sqlite_service.dart';
 import '../providers/voice_billing_provider.dart';
 import '../../sales/providers/sales_provider.dart';
 import '../../../core/utils/print_helper.dart';
+import '../../auth/providers/auth_provider.dart';
 
 class CashierPanel extends ConsumerStatefulWidget {
   const CashierPanel({super.key});
@@ -54,6 +56,35 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
     super.dispose();
   }
 
+  List<Product> _getVariantsForProduct(Product currentProduct, List<Product> allProducts) {
+    if (allProducts.isEmpty) return [currentProduct];
+    
+    // Normalize current product name by stripping trailing weight/unit e.g. " 100g", " 1kg", " 500ml", " 1L"
+    final regex = RegExp(r'\s+\d+(\.\d+)?\s*(g|kg|ml|l|ltr|liter|litre|gm|gms|pcs|piece|pkt|packet|bag|box)?$', caseSensitive: false);
+    final baseName = currentProduct.name.replaceAll(regex, '').trim().toLowerCase();
+    
+    if (baseName.isEmpty) return [currentProduct];
+
+    final variants = allProducts.where((p) {
+      final pBase = p.name.replaceAll(regex, '').trim().toLowerCase();
+      return pBase == baseName || (p.categoryId != null && p.categoryId == currentProduct.categoryId && p.name.toLowerCase().contains(baseName));
+    }).toList();
+
+    if (variants.isEmpty || !variants.any((v) => v.id == currentProduct.id)) {
+      variants.insert(0, currentProduct);
+    }
+    
+    // Sort variants by unitValue or sellingPrice
+    variants.sort((a, b) {
+      if (a.unit.toLowerCase() == b.unit.toLowerCase()) {
+        return a.unitValue.compareTo(b.unitValue);
+      }
+      return a.sellingPrice.compareTo(b.sellingPrice);
+    });
+
+    return variants;
+  }
+
   void _handleBarcodeSubmit(String barcode) {
     if (barcode.isEmpty) return;
 
@@ -89,6 +120,9 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
     try {
       final db = await SqliteService.database;
       final invoiceNumber = 'INV-${DateTime.now().millisecondsSinceEpoch}';
+      final currentUser = ref.read(authProvider);
+      final loggedInCashierId = currentUser.userId ?? 2;
+      final loggedInCashierName = currentUser.username ?? 'Admin';
 
       int? customerId;
       bool isNewCustomer = false;
@@ -140,7 +174,7 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
         final saleId = await txn.insert('sales', {
           'invoice_number': invoiceNumber,
           'customer_id': customerId,
-          'cashier_id': 2, // Default cashier ID for now
+          'cashier_id': loggedInCashierId,
           'date': DateTime.now().toIso8601String(),
           'subtotal': cartState.subtotal,
           'discount': cartState.totalItemDiscount + cartState.globalDiscount,
@@ -189,7 +223,7 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
                 (result.first['current_stock'] as num?)?.toDouble() ?? 0.0;
             final double minStock =
                 (result.first['min_stock'] as num?)?.toDouble() ?? 0.0;
-            if (currentStock <= minStock || currentStock < 25) {
+            if (currentStock <= minStock) {
               alerts.add('${result.first['name']} (Stock: $currentStock)');
             }
           }
@@ -216,7 +250,7 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
           }
           await PrintHelper.printReceipt(
             invoiceNumber: invoiceNumber,
-            cashierName: 'Admin', // Default cashier for now
+            cashierName: loggedInCashierName,
             customerName: _customerNameController.text.isEmpty
                 ? 'Walk-in Customer'
                 : _customerNameController.text,
@@ -454,264 +488,335 @@ class _CashierPanelState extends ConsumerState<CashierPanel> {
                           ),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(12),
-                            child: SingleChildScrollView(
-                              child: SizedBox(
-                                width: double.infinity,
-                                child: DataTable(
-                                  headingRowColor: WidgetStateProperty.all(
-                                    colorScheme.primaryContainer.withValues(
-                                      alpha: 0.5,
-                                    ),
-                                  ),
-                                  headingRowHeight: 40,
-                                  dataRowMinHeight: 40,
-                                  dataRowMaxHeight: 40,
-                                  columnSpacing: 12,
-                                  columns: const [
-                                    DataColumn(
-                                      label: Text(
-                                        'Item',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Qty',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      numeric: true,
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Unit',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Price',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      numeric: true,
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Discount',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      numeric: true,
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'GST',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      numeric: true,
-                                    ),
-                                    DataColumn(
-                                      label: Text(
-                                        'Total',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                      numeric: true,
-                                    ),
-                                    DataColumn(label: Text('')),
-                                  ],
-                                  rows: [
-                                    ...cartState.items.map((item) {
-                                      final rawUnit = item.product.unit.toLowerCase().trim();
-                                      final unitSuffix = rawUnit == 'milli liter' || rawUnit == 'milliliter' || rawUnit == 'ml'
-                                          ? 'ml'
-                                          : rawUnit == 'liter' || rawUnit == 'litre' || rawUnit == 'l'
-                                              ? 'L'
-                                              : rawUnit == 'gram' || rawUnit == 'grams' || rawUnit == 'g'
-                                                  ? 'g'
-                                                  : rawUnit == 'kilogram' || rawUnit == 'kg'
-                                                      ? 'kg'
-                                                      : rawUnit == 'bag' || rawUnit == 'bags'
-                                                          ? 'Bag'
-                                                          : rawUnit == 'packet' || rawUnit == 'pack' || rawUnit == 'pkt'
-                                                              ? 'Pkt'
-                                                              : rawUnit == 'box' || rawUnit == 'boxes'
-                                                                  ? 'Box'
-                                                                  : item.product.unit.isEmpty ? 'Pcs' : item.product.unit;
+                            child: LayoutBuilder(
+                              builder: (context, constraints) {
+                                final tableWidth = constraints.maxWidth;
+                                final itemColWidth = (tableWidth - 660).clamp(160.0, 700.0);
 
-                                      final uVal = item.product.unitValue > 0 ? item.product.unitValue : 1.0;
-                                      final valStr = uVal % 1 == 0 ? uVal.toInt().toString() : uVal.toStringAsFixed(1);
-                                      final fullUnitDisplay = '$valStr $unitSuffix';
-
-                                      return DataRow(
-                                        cells: [
-                                          DataCell(
-                                            Text(
-                                              item.product.name,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
+                                return SingleChildScrollView(
+                                  scrollDirection: Axis.vertical,
+                                  child: SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: ConstrainedBox(
+                                      constraints: BoxConstraints(minWidth: tableWidth),
+                                      child: DataTable(
+                                        horizontalMargin: 16,
+                                        columnSpacing: 10,
+                                        headingRowColor: WidgetStateProperty.all(
+                                          colorScheme.primaryContainer.withValues(
+                                            alpha: 0.5,
                                           ),
-                                          DataCell(
-                                            _EditableCell(
-                                              initialValue: item.quantity % 1 == 0
-                                                  ? item.quantity.toInt().toString()
-                                                  : item.quantity.toStringAsFixed(1),
-                                              showButtons: true,
-                                              onChanged: (val) {
-                                                final qty = double.tryParse(
-                                                  val,
-                                                );
-                                                if (qty != null && qty > 0) {
-                                                  ref
-                                                      .read(
-                                                        cartProvider.notifier,
-                                                      )
-                                                      .updateQuantity(
-                                                        item.product.id!,
-                                                        qty,
-                                                      );
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          DataCell(
-                                            Container(
-                                              padding: const EdgeInsets.symmetric(
-                                                horizontal: 8,
-                                                vertical: 3,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                color: colorScheme.primaryContainer.withOpacity(0.4),
-                                                borderRadius: BorderRadius.circular(6),
-                                                border: Border.all(
-                                                  color: colorScheme.primary.withOpacity(0.3),
-                                                  width: 1,
-                                                ),
-                                              ),
-                                              child: Text(
-                                                fullUnitDisplay,
+                                        ),
+                                        headingRowHeight: 40,
+                                        dataRowMinHeight: 40,
+                                        dataRowMaxHeight: 40,
+                                        columns: [
+                                          DataColumn(
+                                            label: SizedBox(
+                                              width: itemColWidth,
+                                              child: const Text(
+                                                'Item',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 12,
-                                                  color: colorScheme.primary,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          DataCell(
-                                            _EditableCell(
-                                              initialValue: item
-                                                  .getPrice(cartState.saleType)
-                                                  .toStringAsFixed(2),
-                                              onChanged: (val) {
-                                                final price =
-                                                    double.tryParse(val) ??
-                                                    item.getPrice(
-                                                      cartState.saleType,
-                                                    );
-                                                ref
-                                                    .read(cartProvider.notifier)
-                                                    .updatePrice(
-                                                      item.product.id!,
-                                                      price,
-                                                    );
-                                              },
+                                          const DataColumn(
+                                            label: Text(
+                                              'Qty',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
+                                            numeric: true,
                                           ),
-                                          DataCell(
-                                            _EditableCell(
-                                              initialValue: item.discount
-                                                  .toStringAsFixed(2),
-                                              onChanged: (val) {
-                                                final disc = double.tryParse(
-                                                  val,
-                                                );
-                                                if (disc != null && disc >= 0) {
-                                                  ref
-                                                      .read(
-                                                        cartProvider.notifier,
-                                                      )
-                                                      .updateDiscount(
-                                                        item.product.id!,
-                                                        disc,
-                                                      );
-                                                }
-                                              },
-                                            ),
-                                          ),
-                                          DataCell(
-                                            Text(
-                                              item
-                                                  .getGstAmount(
-                                                    cartState.saleType,
-                                                  )
-                                                  .toStringAsFixed(2),
-                                            ),
-                                          ),
-                                          DataCell(
-                                            Text(
-                                              item
-                                                  .getNetAmount(
-                                                    cartState.saleType,
-                                                  )
-                                                  .toStringAsFixed(2),
-                                              style: const TextStyle(
+                                          const DataColumn(
+                                            label: Text(
+                                              'Unit',
+                                              style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
                                           ),
-                                          DataCell(
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.delete_outline,
-                                                color: Colors.redAccent,
-                                              ),
-                                              onPressed: () => ref
-                                                  .read(cartProvider.notifier)
-                                                  .removeProduct(
-                                                    item.product.id!,
-                                                  ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    }),
-                                    if (cartState.items.isEmpty)
-                                      const DataRow(
-                                        cells: [
-                                          DataCell(
-                                            Text(
-                                              'No items in cart.',
+                                          const DataColumn(
+                                            label: Text(
+                                              'Rate',
                                               style: TextStyle(
-                                                color: Colors.grey,
+                                                fontWeight: FontWeight.bold,
                                               ),
                                             ),
+                                            numeric: true,
                                           ),
-                                          DataCell(Text('')),
-                                          DataCell(Text('')),
-                                          DataCell(Text('')),
-                                          DataCell(Text('')),
-                                          DataCell(Text('')),
-                                          DataCell(Text('')),
-                                          DataCell(Text('')),
+                                          const DataColumn(
+                                            label: Text(
+                                              'Discount',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            numeric: true,
+                                          ),
+                                          const DataColumn(
+                                            label: Text(
+                                              'GST',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            numeric: true,
+                                          ),
+                                          const DataColumn(
+                                            label: Text(
+                                              'Total',
+                                              style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            numeric: true,
+                                          ),
+                                          const DataColumn(label: Text('')),
+                                        ],
+                                        rows: [
+                                          ...cartState.items.map((item) {
+                                            final allProducts = ref.watch(productsProvider).value ?? [];
+                                            final rawUnit = item.product.unit.toLowerCase().trim();
+                                            final unitSuffix = rawUnit == 'milli liter' || rawUnit == 'milliliter' || rawUnit == 'ml'
+                                                ? 'ml'
+                                                : rawUnit == 'liter' || rawUnit == 'litre' || rawUnit == 'l'
+                                                    ? 'L'
+                                                    : rawUnit == 'gram' || rawUnit == 'grams' || rawUnit == 'g'
+                                                        ? 'g'
+                                                        : rawUnit == 'kilogram' || rawUnit == 'kg'
+                                                            ? 'kg'
+                                                            : rawUnit == 'bag' || rawUnit == 'bags'
+                                                                ? 'Bag'
+                                                                : rawUnit == 'packet' || rawUnit == 'pack' || rawUnit == 'pkt'
+                                                                    ? 'Pkt'
+                                                                    : rawUnit == 'box' || rawUnit == 'boxes'
+                                                                        ? 'Box'
+                                                                        : item.product.unit.isEmpty ? 'Pcs' : item.product.unit;
+
+                                            final uVal = item.product.unitValue > 0 ? item.product.unitValue : 1.0;
+                                            final valStr = uVal % 1 == 0 ? uVal.toInt().toString() : uVal.toStringAsFixed(1);
+                                            final fullUnitDisplay = '$valStr $unitSuffix';
+
+                                            return DataRow(
+                                              cells: [
+                                                DataCell(
+                                                  SizedBox(
+                                                    width: itemColWidth,
+                                                    child: Text(
+                                                      item.product.name,
+                                                      style: const TextStyle(
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                      maxLines: 1,
+                                                      overflow: TextOverflow.ellipsis,
+                                                    ),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  _EditableCell(
+                                                    initialValue: item.quantity % 1 == 0
+                                                        ? item.quantity.toInt().toString()
+                                                        : item.quantity.toStringAsFixed(3).replaceAll(RegExp(r'0+$'), '').replaceAll(RegExp(r'\.$'), ''),
+                                                    showButtons: true,
+                                                    onChanged: (val) {
+                                                      final qty = double.tryParse(
+                                                        val,
+                                                      );
+                                                      if (qty != null && qty > 0) {
+                                                        ref
+                                                            .read(
+                                                              cartProvider.notifier,
+                                                            )
+                                                            .updateQuantity(
+                                                              item.product.id!,
+                                                              qty,
+                                                            );
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Builder(
+                                                    builder: (context) {
+                                                      final variants = _getVariantsForProduct(item.product, allProducts);
+                                                      if (variants.length > 1) {
+                                                        return Container(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
+                                                          decoration: BoxDecoration(
+                                                            color: colorScheme.primaryContainer.withValues(alpha: 0.5),
+                                                            borderRadius: BorderRadius.circular(6),
+                                                            border: Border.all(
+                                                              color: colorScheme.primary.withValues(alpha: 0.4),
+                                                              width: 1,
+                                                            ),
+                                                          ),
+                                                          child: DropdownButtonHideUnderline(
+                                                            child: DropdownButton<int>(
+                                                              value: variants.any((v) => v.id == item.product.id) ? item.product.id : variants.first.id,
+                                                              isDense: true,
+                                                              icon: Icon(Icons.arrow_drop_down, size: 18, color: colorScheme.primary),
+                                                              style: TextStyle(
+                                                                fontWeight: FontWeight.bold,
+                                                                fontSize: 12,
+                                                                color: colorScheme.primary,
+                                                              ),
+                                                              items: variants.map((v) {
+                                                                final vUnit = v.unit.toLowerCase().trim();
+                                                                final vSuffix = vUnit == 'milli liter' || vUnit == 'ml'
+                                                                    ? 'ml'
+                                                                    : (vUnit == 'liter' || vUnit == 'litre' || vUnit == 'l'
+                                                                        ? 'L'
+                                                                        : (vUnit == 'gram' || vUnit == 'g'
+                                                                            ? 'g'
+                                                                            : (vUnit == 'kilogram' || vUnit == 'kg' ? 'kg' : v.unit)));
+                                                                final vVal = v.unitValue > 0 ? v.unitValue : 1.0;
+                                                                final vValStr = vVal % 1 == 0 ? vVal.toInt().toString() : vVal.toStringAsFixed(1);
+                                                                return DropdownMenuItem<int>(
+                                                                  value: v.id,
+                                                                  child: Text('$vValStr $vSuffix (₹${v.sellingPrice.toStringAsFixed(0)})'),
+                                                                );
+                                                              }).toList(),
+                                                              onChanged: (newId) {
+                                                                if (newId != null && newId != item.product.id) {
+                                                                  final newProd = variants.firstWhere((v) => v.id == newId);
+                                                                  ref.read(cartProvider.notifier).changeVariant(item.product.id!, newProd);
+                                                                }
+                                                              },
+                                                            ),
+                                                          ),
+                                                        );
+                                                      } else {
+                                                        return Container(
+                                                          padding: const EdgeInsets.symmetric(
+                                                            horizontal: 8,
+                                                            vertical: 3,
+                                                          ),
+                                                          decoration: BoxDecoration(
+                                                            color: colorScheme.surfaceContainerHighest,
+                                                            borderRadius: BorderRadius.circular(6),
+                                                            border: Border.all(
+                                                              color: colorScheme.primary.withOpacity(0.3),
+                                                              width: 1,
+                                                            ),
+                                                          ),
+                                                          child: Text(
+                                                            fullUnitDisplay,
+                                                            style: TextStyle(
+                                                              fontWeight: FontWeight.bold,
+                                                              fontSize: 12,
+                                                              color: colorScheme.primary,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    '₹${item.getPrice(cartState.saleType).toStringAsFixed(2)}',
+                                                    style: TextStyle(
+                                                      fontWeight: FontWeight.w600,
+                                                      color: Colors.grey.shade800,
+                                                    ),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  _EditableCell(
+                                                    initialValue: item.discount
+                                                        .toStringAsFixed(2),
+                                                    onChanged: (val) {
+                                                      final disc = double.tryParse(
+                                                        val,
+                                                      );
+                                                      if (disc != null && disc >= 0) {
+                                                        ref
+                                                            .read(
+                                                              cartProvider.notifier,
+                                                            )
+                                                            .updateDiscount(
+                                                              item.product.id!,
+                                                              disc,
+                                                            );
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  Text(
+                                                    item
+                                                        .getGstAmount(
+                                                          cartState.saleType,
+                                                        )
+                                                        .toStringAsFixed(2),
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  _EditableCell(
+                                                    initialValue: item
+                                                        .getNetAmount(
+                                                          cartState.saleType,
+                                                        )
+                                                        .toStringAsFixed(2),
+                                                    onChanged: (val) {
+                                                      final targetTotal = double.tryParse(val);
+                                                      if (targetTotal != null && targetTotal > 0) {
+                                                        ref
+                                                            .read(cartProvider.notifier)
+                                                            .updateTotalAmount(
+                                                              item.product.id!,
+                                                              targetTotal,
+                                                            );
+                                                      }
+                                                    },
+                                                  ),
+                                                ),
+                                                DataCell(
+                                                  IconButton(
+                                                    icon: const Icon(
+                                                      Icons.delete_outline,
+                                                      color: Colors.redAccent,
+                                                    ),
+                                                    onPressed: () => ref
+                                                        .read(cartProvider.notifier)
+                                                        .removeProduct(
+                                                          item.product.id!,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            );
+                                          }),
+                                          if (cartState.items.isEmpty)
+                                            const DataRow(
+                                              cells: [
+                                                DataCell(
+                                                  Text(
+                                                    'No items in cart.',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                    ),
+                                                  ),
+                                                ),
+                                                DataCell(Text('')),
+                                                DataCell(Text('')),
+                                                DataCell(Text('')),
+                                                DataCell(Text('')),
+                                                DataCell(Text('')),
+                                                DataCell(Text('')),
+                                                DataCell(Text('')),
+                                              ],
+                                            ),
                                         ],
                                       ),
-                                  ],
-                                ),
-                              ),
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ),
                         ),
@@ -1305,11 +1410,9 @@ class _EditableCellState extends State<_EditableCell> {
             constraints: const BoxConstraints(),
             splashRadius: 16,
           ),
-        if (widget.showButtons) const SizedBox(width: 8),
+        if (widget.showButtons) const SizedBox(width: 4),
         SizedBox(
-          width: widget.showButtons
-              ? (widget.suffixText != null ? 80 : 50)
-              : (widget.suffixText != null ? 100 : 90),
+          width: widget.showButtons ? 58 : 72,
           child: TextField(
             controller: _controller,
             focusNode: _focusNode,
@@ -1318,7 +1421,7 @@ class _EditableCellState extends State<_EditableCell> {
             decoration: InputDecoration(
               isDense: true,
               contentPadding: const EdgeInsets.symmetric(
-                vertical: 8,
+                vertical: 6,
                 horizontal: 4,
               ),
               border: OutlineInputBorder(
@@ -1327,9 +1430,10 @@ class _EditableCellState extends State<_EditableCell> {
               suffixText: widget.suffixText,
             ),
             onChanged: widget.onChanged,
+            onSubmitted: widget.onChanged,
           ),
         ),
-        if (widget.showButtons) const SizedBox(width: 8),
+        if (widget.showButtons) const SizedBox(width: 4),
         if (widget.showButtons)
           IconButton(
             icon: const Icon(

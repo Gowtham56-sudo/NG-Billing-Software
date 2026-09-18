@@ -5,11 +5,17 @@ echo    Starting NextGen AI Voice Billing Software...
 echo =====================================================
 echo.
 
-:: Detect Python environment
-set "PY_CMD=python"
-if exist "%~dp0python_voice_server\venv\Scripts\python.exe" (
+:: Detect Python environment (Standalone Portable Python first, then venv, then system)
+set "PY_CMD="
+if exist "%~dp0python_voice_server\python_runtime\python.exe" (
+    set "PY_CMD=%~dp0python_voice_server\python_runtime\python.exe"
+    echo [INFO] Using Bundled Standalone Portable Python AI Runtime.
+) else if exist "%~dp0python_voice_server\venv\Scripts\python.exe" (
     set "PY_CMD=%~dp0python_voice_server\venv\Scripts\python.exe"
-    echo [INFO] Using packaged Python AI environment.
+    echo [INFO] Using packaged Python venv environment.
+) else (
+    set "PY_CMD=python"
+    echo [INFO] Using system Python.
 )
 
 :: Start Python Voice Server in background

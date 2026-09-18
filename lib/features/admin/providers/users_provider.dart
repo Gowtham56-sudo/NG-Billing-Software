@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../database/sqlite_service.dart';
+import '../../../core/utils/password_helper.dart';
 
 class AppUser {
   final int? id;
@@ -48,9 +49,11 @@ class UsersNotifier extends AsyncNotifier<List<AppUser>> {
 
   Future<void> addUser({required String username, required String password, required String role}) async {
     final db = await SqliteService.database;
+    final salt = PasswordHelper.generateSalt();
     await db.insert('users', {
       'username': username.trim(),
-      'password_hash': password.trim(),
+      'password_hash': PasswordHelper.hash(password.trim(), salt),
+      'salt': salt,
       'role': role,
       'is_active': 1,
       'created_at': DateTime.now().toIso8601String(),
@@ -61,7 +64,11 @@ class UsersNotifier extends AsyncNotifier<List<AppUser>> {
   Future<void> updateUser({required int id, String? password, String? role, bool? isActive}) async {
     final db = await SqliteService.database;
     final Map<String, dynamic> updates = {};
-    if (password != null && password.isNotEmpty) updates['password_hash'] = password.trim();
+    if (password != null && password.isNotEmpty) {
+      final salt = PasswordHelper.generateSalt();
+      updates['salt'] = salt;
+      updates['password_hash'] = PasswordHelper.hash(password.trim(), salt);
+    }
     if (role != null) updates['role'] = role;
     if (isActive != null) updates['is_active'] = isActive ? 1 : 0;
 

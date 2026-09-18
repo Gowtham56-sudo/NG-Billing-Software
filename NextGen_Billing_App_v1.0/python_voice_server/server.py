@@ -23,7 +23,7 @@ def find_db_path():
 
 DB_PATH = find_db_path()
 
-audio_proc = AudioProcessor()
+audio_proc = AudioProcessor(model_size="base")
 nlu_proc = NLUProcessor(db_path=DB_PATH)
 
 async def process_queue(websocket, transcript_queue):
@@ -115,8 +115,8 @@ async def handler(websocket):
             queue_task.cancel()
 
 async def main():
-    async with websockets.serve(handler, "localhost", 8765):
-        print("WebSocket Server running on ws://localhost:8765")
+    async with websockets.serve(handler, "0.0.0.0", 8765):
+        print("WebSocket Server running on ws://127.0.0.1:8765 and ws://localhost:8765")
         await asyncio.Future()  # run forever
 
 if __name__ == "__main__":

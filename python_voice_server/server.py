@@ -23,7 +23,7 @@ def find_db_path():
 
 DB_PATH = find_db_path()
 
-audio_proc = AudioProcessor()
+audio_proc = AudioProcessor(model_size="base")
 nlu_proc = NLUProcessor(db_path=DB_PATH)
 
 async def process_queue(websocket, transcript_queue):
@@ -40,7 +40,7 @@ async def process_queue(websocket, transcript_queue):
             
             # Run NLU in thread to not block event loop
             result_json = await asyncio.to_thread(nlu_proc.process_transcript, chunk)
-            print("Gemini Output:", result_json)
+            print("NLU Output:", result_json)
             
             try:
                 parsed_res = json.loads(result_json)
@@ -82,9 +82,16 @@ async def handler(websocket):
                 
             elif command == "stop":
                 print("Received STOP command.")
-                final_transcript = audio_proc.stop_recording()
+                audio_proc.stop_recording()
                 audio_proc.on_transcription_ready = None
-                
+
+                # stop_recording() flushes any buffered audio synchronously, but the
+                # resulting transcript reaches transcript_queue via call_soon_threadsafe,
+                # which only runs on the loop's NEXT iteration. Yield here first, otherwise
+                # the empty() check below races ahead of that callback and the last spoken
+                # item is silently lost (or leaks into the next recording session's queue).
+                await asyncio.sleep(0.15)
+
                 # Process any leftover audio that was flushed during stop
                 if not transcript_queue.empty():
                     print("Processing leftover queue items...")
@@ -115,8 +122,8 @@ async def handler(websocket):
             queue_task.cancel()
 
 async def main():
-    async with websockets.serve(handler, "localhost", 8765):
-        print("WebSocket Server running on ws://localhost:8765")
+    async with websockets.serve(handler, "0.0.0.0", 8765):
+        print("WebSocket Server running on ws://127.0.0.1:8765 and ws://localhost:8765")
         await asyncio.Future()  # run forever
 
 if __name__ == "__main__":

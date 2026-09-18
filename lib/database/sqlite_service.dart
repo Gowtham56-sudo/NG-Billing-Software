@@ -2,6 +2,7 @@ import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart';
 import 'dart:io';
 import 'tables.dart';
+import '../core/utils/password_helper.dart';
 
 class SqliteService {
   static Database? _database;
@@ -27,7 +28,7 @@ class SqliteService {
     final db = await factory.openDatabase(
       path,
       options: OpenDatabaseOptions(
-        version: 5,
+        version: 6,
         onCreate: _createDB,
         onUpgrade: _upgradeDB,
       ),
@@ -49,17 +50,23 @@ class SqliteService {
     await db.rawUpdate("UPDATE products SET category_id = 4 WHERE category_id IS NULL AND (name LIKE '%shampoo%' OR name LIKE '%soap%' OR name LIKE '%blade%' OR name LIKE '%paste%')");
     await db.rawUpdate("UPDATE products SET category_id = 7 WHERE category_id IS NULL AND (name LIKE '%tomato%' OR name LIKE '%onion%' OR name LIKE '%potato%' OR name LIKE '%carrot%' OR name LIKE '%beans%' OR name LIKE '%brinjal%' OR name LIKE '%cabbage%' OR name LIKE '%chilli%' OR name LIKE '%ginger%' OR name LIKE '%garlic%' OR name LIKE '%lemon%' OR name LIKE '%keerai%' OR name LIKE '%leaves%')");
 
-    // Ensure the default admin password is set to 'root' for existing databases
-    await db.execute("UPDATE users SET password_hash = 'root' WHERE username = 'admin'");
-    
     // One-time fix for Voice Assistant mapping mismatch
     await db.rawUpdate('UPDATE products SET name = ? WHERE name = ?', ['Sunflower Oil 1L', 'Sunflower Cooking Oil 1L']);
     
     // Ensure a default cashier exists for existing databases
-    await db.execute('''
-      INSERT OR IGNORE INTO users (username, password_hash, role, is_active)
-      VALUES ('cashier', 'cashier123', 'cashier', 1)
-    ''');
+    final cashierSalt = PasswordHelper.generateSalt();
+    await db.insert(
+      'users',
+      {
+        'username': 'cashier',
+        'password_hash': PasswordHelper.hash('cashier123', cashierSalt),
+        'salt': cashierSalt,
+        'role': 'cashier',
+        'is_active': 1,
+        'created_at': DateTime.now().toIso8601String(),
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
 
     return db;
   }
@@ -73,18 +80,36 @@ class SqliteService {
       await db.execute(tableSql);
     }
     
-    // Insert default admin user if not exists
-    // We will use a default password 'admin123' hashed (for simplicity here, we'll hash it in auth repository or insert a dummy hash here)
-    // Note: In production, password should be properly hashed. Here we insert plain text as a placeholder or a basic hash.
-    await db.execute('''
-      INSERT OR IGNORE INTO users (username, password_hash, role, is_active)
-      VALUES ('admin', 'root', 'admin', 1)
-    ''');
+    // Seed default admin and cashier accounts with salted password hashes.
+    final adminSalt = PasswordHelper.generateSalt();
+    final cashierSalt = PasswordHelper.generateSalt();
+    final now = DateTime.now().toIso8601String();
 
-    await db.execute('''
-      INSERT OR IGNORE INTO users (username, password_hash, role, is_active)
-      VALUES ('cashier', 'cashier123', 'cashier', 1)
-    ''');
+    await db.insert(
+      'users',
+      {
+        'username': 'admin',
+        'password_hash': PasswordHelper.hash('root', adminSalt),
+        'salt': adminSalt,
+        'role': 'admin',
+        'is_active': 1,
+        'created_at': now,
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
+
+    await db.insert(
+      'users',
+      {
+        'username': 'cashier',
+        'password_hash': PasswordHelper.hash('cashier123', cashierSalt),
+        'salt': cashierSalt,
+        'role': 'cashier',
+        'is_active': 1,
+        'created_at': now,
+      },
+      conflictAlgorithm: ConflictAlgorithm.ignore,
+    );
   }
 
   static Future<void> _upgradeDB(Database db, int oldVersion, int newVersion) async {
@@ -114,6 +139,37 @@ class SqliteService {
         await db.execute('ALTER TABLE customers ADD COLUMN paid_amount REAL DEFAULT 0.0');
       } catch (e) {
         // Ignore
+      }
+    }
+    if (oldVersion < 6) {
+      try {
+        await db.execute('ALTER TABLE users ADD COLUMN salt TEXT');
+      } catch (e) {
+        // Column might already exist
+      }
+      try {
+        await db.execute('ALTER TABLE users ADD COLUMN created_at TEXT');
+      } catch (e) {
+        // Column might already exist
+      }
+
+      // Migrate any user still carrying a plaintext password_hash (no salt yet)
+      // to a salted hash, so upgrading an existing client database doesn't
+      // leave old accounts stored in clear text.
+      final plaintextUsers = await db.query(
+        'users',
+        where: 'salt IS NULL OR salt = ?',
+        whereArgs: [''],
+      );
+      for (final user in plaintextUsers) {
+        final salt = PasswordHelper.generateSalt();
+        final hashed = PasswordHelper.hash(user['password_hash'] as String, salt);
+        await db.update(
+          'users',
+          {'salt': salt, 'password_hash': hashed},
+          where: 'id = ?',
+          whereArgs: [user['id']],
+        );
       }
     }
   }

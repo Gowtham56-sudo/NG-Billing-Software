@@ -41,7 +41,7 @@ class _InventoryScreenState extends ConsumerState<InventoryScreen> {
           }
 
           // Filter low stock globally
-          final lowStockProducts = products.where((p) => p.currentStock <= p.minStock || p.currentStock < 25).toList();
+          final lowStockProducts = products.where((p) => p.currentStock <= p.minStock).toList();
 
           // Filter by search query
           final filteredProducts = _searchQuery.isEmpty 

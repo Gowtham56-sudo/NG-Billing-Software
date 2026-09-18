@@ -72,7 +72,7 @@ class NextGenBillingApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
-      title: 'NextGen Billing Software',
+      title: 'NG-Bill Desktop',
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.light, // Enforce light theme for white and blue

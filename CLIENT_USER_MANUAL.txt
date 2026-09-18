@@ -19,29 +19,39 @@ and Thermal Receipt Printing.
 --------------------------------------------------------------------------------
 - Role: Admin
 - Username: admin
-- Password: admin
+- Password: root
 (You can also log in as Cashier: cashier / cashier123)
+
+IMPORTANT - SECURITY: Please change BOTH default passwords immediately after
+your first login, via Admin -> User Management. These default credentials are
+the same on every installation of this software and should not be left active.
 
 --------------------------------------------------------------------------------
 3. SMART VOICE BILLING COMMANDS
 --------------------------------------------------------------------------------
 Open the Cashier screen and click the "Voice Billing" microphone button.
-Speak naturally in Tamil, English, or Thanglish:
+Speak naturally in Tamil, English, or Thanglish to ADD items to the current
+bill. Voice billing only adds items - use the on-screen cart to change a
+quantity, remove an item, apply a discount, choose the payment method, or
+print, exactly as you would for a barcode-scanned item.
 
-A. Adding Products to Cart:
-   - "Rendu aavin milk podu"          -> Adds 2 units of Aavin Milk
-   - "Add 1 sun pure oil"             -> Adds 1 unit of Sun Pure Oil
-   - "500 gram sugar kudu"            -> Adds 500g Sugar
-   - "Moonu clinic plus shampoo"      -> Adds 3 Clinic Plus Shampoo sachets
+A. Adding Products by Name and Quantity:
+   - "Rendu tomato"                   -> Adds 2 kg of Tomato
+   - "Sun pure oil 1 packet"          -> Adds 1 unit of Sun Pure Oil
 
-B. Editing & Quantity Modifiers:
-   - "Aavin milk qty 3 ah maathu"     -> Updates quantity to 3
-   - "Remove oil"                     -> Deletes oil from current bill
+B. Fractional & Weight Quantities:
+   - "Vengayam arai kilo"             -> Adds 0.5 kg of Onion
+   - "Chilli powder 50 gram"          -> Adds the matching pack size/weight
 
-C. Discounts & Finalizing:
-   - "10 percent discount podu"       -> Applies 10% instant discount
-   - "Cash payment"                   -> Selects Cash mode
-   - "Print bill"                     -> Generates and prints thermal tax invoice
+C. Budget-Based Quantities:
+   - "20 roobaikku thakkali"          -> Adds however much Tomato Rs.20 buys
+
+D. Multiple Items in One Sentence:
+   - "Thakkali 2 kilo, vengayam 1 kilo" -> Adds both Tomato and Onion in one go
+
+After speaking, review the items added to the cart on screen before finalizing
+the bill - always double-check the voice-recognized items and quantities,
+especially in a noisy shop environment.
 
 --------------------------------------------------------------------------------
 4. KEY POS FEATURES

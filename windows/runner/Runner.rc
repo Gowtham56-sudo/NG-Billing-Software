@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.nextgen" "\0"
-            VALUE "FileDescription", "nextgen_billing_software" "\0"
+            VALUE "CompanyName", "com.ngbill" "\0"
+            VALUE "FileDescription", "NG-Bill Desktop" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "nextgen_billing_software" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 com.nextgen. All rights reserved." "\0"
+            VALUE "InternalName", "ng_bill_desktop" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 com.ngbill. All rights reserved." "\0"
             VALUE "OriginalFilename", "nextgen_billing_software.exe" "\0"
-            VALUE "ProductName", "nextgen_billing_software" "\0"
+            VALUE "ProductName", "NG-Bill Desktop" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -4,8 +4,10 @@ class DatabaseTables {
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
+      salt TEXT,
       role TEXT NOT NULL,
-      is_active INTEGER DEFAULT 1
+      is_active INTEGER DEFAULT 1,
+      created_at TEXT
     )
   ''';
 
